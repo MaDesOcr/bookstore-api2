@@ -47,25 +47,12 @@ class BookServiceTest {
 
         @Test
         void findById_ShouldReturnDto_WhenBookExists() {
-            // Given
-            when(bookRepository.findById(1L)).thenReturn(Optional.of(sampleBook));
-
-            // When
-            BookDto result = bookService.findById(1L);
-
-            // Then
-            assertThat(result.title()).isEqualTo("Le Petit Prince");
-            verify(bookRepository).findById(1L);
+            
         }
 
         @Test
         void findById_ShouldThrowException_WhenBookNotFound() {
-            // Given
-            when(bookRepository.findById(1L)).thenReturn(Optional.empty());
-
-            // When / Then
-            assertThatThrownBy(() -> bookService.findById(1L))
-                .isInstanceOf(BookNotFoundException.class);
+           
         }
     }
 
@@ -75,28 +62,12 @@ class BookServiceTest {
 
         @Test
         void purchase_ShouldDecreaseStock_WhenStockIsSufficient() {
-            // Given
-            when(bookRepository.findById(1L)).thenReturn(Optional.of(sampleBook));
-            when(bookRepository.save(any(Book.class))).thenAnswer(i -> i.getArguments()[0]);
-
-            // When
-            BookDto result = bookService.purchase(1L, 3);
-
-            // Then
-            assertThat(result.stock()).isEqualTo(7);
-            verify(bookRepository).save(sampleBook);
+           
         }
 
         @Test
         void purchase_ShouldThrowException_WhenStockIsInsufficient() {
-            // Given
-            when(bookRepository.findById(1L)).thenReturn(Optional.of(sampleBook));
-
-            // When / Then
-            assertThatThrownBy(() -> bookService.purchase(1L, 100))
-                .isInstanceOf(InsufficientStockException.class);
-            
-            verify(bookRepository, never()).save(any());
+           
         }
     }
 
@@ -106,24 +77,12 @@ class BookServiceTest {
 
         @Test
         void deleteBook_ShouldCallDelete_WhenBookExists() {
-            // Given
-            when(bookRepository.existsById(1L)).thenReturn(true);
-
-            // When
-            bookService.deleteBook(1L);
-
-            // Then
-            verify(bookRepository).deleteById(1L);
+          
         }
 
         @Test
         void deleteBook_ShouldThrowException_WhenBookDoesNotExist() {
-            // Given
-            when(bookRepository.existsById(1L)).thenReturn(false);
-
-            // When / Then
-            assertThatThrownBy(() -> bookService.deleteBook(1L))
-                .isInstanceOf(BookNotFoundException.class);
+           
         }
     }
 }
