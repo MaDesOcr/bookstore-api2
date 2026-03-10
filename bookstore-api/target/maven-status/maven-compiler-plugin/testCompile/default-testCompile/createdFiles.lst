@@ -1,0 +1,4 @@
+com\example\bookstore\AbstractIntegrationTest.class
+com\example\bookstore\service\BookServiceIT.class
+com\example\bookstore\controller\BookApiIT.class
+com\example\bookstore\repository\BookRepositoryIT.class

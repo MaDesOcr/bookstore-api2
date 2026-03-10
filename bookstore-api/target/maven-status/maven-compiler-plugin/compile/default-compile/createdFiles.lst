@@ -1,0 +1,13 @@
+com\example\bookstore\dto\CreateBookRequest.class
+com\example\bookstore\controller\BookController.class
+com\example\bookstore\exception\BookNotFoundException.class
+com\example\bookstore\model\Book.class
+com\example\bookstore\service\BookService.class
+com\example\bookstore\dto\UpdateBookRequest.class
+com\example\bookstore\exception\InsufficientStockException.class
+com\example\bookstore\BookstoreApplication.class
+com\example\bookstore\model\Book$BookBuilder.class
+com\example\bookstore\exception\DuplicateIsbnException.class
+com\example\bookstore\exception\GlobalExceptionHandler.class
+com\example\bookstore\repository\BookRepository.class
+com\example\bookstore\dto\BookDto.class
