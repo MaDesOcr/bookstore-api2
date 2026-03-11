@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests d'intégration — BookService.findById()
@@ -113,10 +116,18 @@ class BookServiceFindByIdIT {
     @DisplayName("retourne null pour isbn et category quand ils ne sont pas renseignés")
     void findById_returnsDto_withNullIsbnAndCategory_whenNotSet() {
         // GIVEN — livre sans isbn ni category
+    	Book book = new Book("Clean Code", "R. Martin", new BigDecimal("29.99"));
+        //book.setIsbn("978-0132350884");
+        //book.setCategory("TECH");
+        Book saved = bookRepository.save(book);
 
         // WHEN
+        BookDto result = bookService.findById(saved.getId());
 
         // THEN
+        assertThat(result.isbn()).isNull();
+        assertThat(result.category()).isNull();
+
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -130,11 +141,16 @@ class BookServiceFindByIdIT {
     @DisplayName("retourne le bon livre quand plusieurs livres sont en BDD")
     void findById_returnsCorrectBook_whenMultipleBooksExist() {
         // GIVEN — deux livres en BDD avec des IDs différents
-        
+    	Book book1 = new Book("Book1", "R. Martin", new BigDecimal("29.99"));
+    	Book book2 = new Book("Book2", "R. Martin", new BigDecimal("29.99"));
+    	bookRepository.save(book1);
+    	Book bToSearch = bookRepository.save(book2);
+    	
         // WHEN — on cherche explicitement le deuxième
-        
+        BookDto result = bookService.findById(bToSearch.getId());
+
         // THEN — on doit obtenir book2, pas book1
-        
+        assertEquals("Book2", result.title());
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -148,9 +164,10 @@ class BookServiceFindByIdIT {
     @DisplayName("lève BookNotFoundException quand l'ID n'existe pas en BDD")
     void findById_throwsBookNotFoundException_whenIdNotFound() {
         // GIVEN — BDD vide (setUp() a fait deleteAll)
-
+    	
         // WHEN + THEN
-       
+    	assertThrows(BookNotFoundException.class, ()->bookService.findById(1L));
+    	
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -164,12 +181,16 @@ class BookServiceFindByIdIT {
     @DisplayName("lève BookNotFoundException après suppression du livre")
     void findById_throwsException_afterBookIsDeleted() {
         // GIVEN — un livre existe puis est supprimé
-      
+    	Book book = new Book("Book1", "R. Martin", new BigDecimal("29.99"));
+        Book saved = bookRepository.save(book);
+
         // Vérifier qu'il existe bien avant suppression
-      
+        BookDto result = bookService.findById(saved.getId());
+        assertNotNull(result);
         // Supprimer le livre
-      
+        bookService.deleteBook(saved.getId());
         // WHEN + THEN — il ne doit plus être trouvable
+    	assertThrows(BookNotFoundException.class, ()->bookService.findById(saved.getId()));
 
     }
 }
