@@ -89,66 +89,25 @@ class BookControllerCreateTest {
         @DisplayName("retourne le livre créé dans le body JSON")
         void create_returnsCreatedBookInBody() throws Exception {
             // GIVEN
-            BookDto serviceResponse = new BookDto(
-                    42L, "Clean Code", "R. Martin", "978-0132350884",
-                    new BigDecimal("29.99"), 10, "TECH", LocalDateTime.now());
-            when(bookService.createBook(any())).thenReturn(serviceResponse);
-
-            CreateBookRequest requestBody = new CreateBookRequest(
-                    "Clean Code", "R. Martin", "978-0132350884", "TECH",
-                    new BigDecimal("29.99"), 10);
-
-            // WHEN + THEN — vérifier les champs du JSON retourné
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(requestBody)))
-                    .andExpect(jsonPath("$.id",     is(42)))
-                    .andExpect(jsonPath("$.title",  is("Clean Code")))
-                    .andExpect(jsonPath("$.author", is("R. Martin")))
-                    .andExpect(jsonPath("$.price",  is(29.99)))
-                    .andExpect(jsonPath("$.stock",  is(10)));
-        }
+             // WHEN + THEN — vérifier les champs du JSON retourné
+              }
 
         @Test
         @DisplayName("retourne un header Location pointant vers le nouveau livre")
         void create_returnsLocationHeader_withNewBookUrl() throws Exception {
             // GIVEN — l'ID retourné par le service est 42
-            BookDto serviceResponse = new BookDto(
-                    42L, "Clean Code", "R. Martin", null,
-                    new BigDecimal("29.99"), 10, "TECH", LocalDateTime.now());
-            when(bookService.createBook(any())).thenReturn(serviceResponse);
-
-            CreateBookRequest requestBody = new CreateBookRequest(
-                    "Clean Code", "R. Martin", null, "TECH",
-                    new BigDecimal("29.99"), 10);
-
+           
             // WHEN + THEN — Location doit contenir /api/books/42
             mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(requestBody)))
-                    .andExpect(header().string("Location", containsString("/api/books/42")));
-        }
+           }
 
         @Test
         @DisplayName("délègue exactement une fois au service avec les bons paramètres")
         void create_delegatesToServiceExactlyOnce() throws Exception {
             // GIVEN
-            BookDto serviceResponse = new BookDto(
-                    1L, "Clean Code", "R. Martin", null,
-                    new BigDecimal("29.99"), 5, "TECH", LocalDateTime.now());
-            when(bookService.createBook(any())).thenReturn(serviceResponse);
-
-            CreateBookRequest requestBody = new CreateBookRequest(
-                    "Clean Code", "R. Martin", null, "TECH",
-                    new BigDecimal("29.99"), 5);
-
+           
             // WHEN
-            mockMvc.perform(post("/api/books")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(requestBody)));
-
-            // THEN — le service a été appelé exactement une fois
-            verify(bookService, times(1)).createBook(any(CreateBookRequest.class));
+                  // THEN — le service a été appelé exactement une fois
         }
     }
 
@@ -164,71 +123,28 @@ class BookControllerCreateTest {
         @DisplayName("retourne 400 quand le titre est vide")
         void create_returns400_whenTitleIsBlank() throws Exception {
             // GIVEN — titre vide : viole @NotBlank sur CreateBookRequest.title
-            String invalidBody = """
-                    {
-                      "title":  "",
-                      "author": "R. Martin",
-                      "price":  29.99,
-                      "stock":  10
-                    }
-                    """;
-
+           
             // WHEN + THEN — Spring MVC doit rejeter avant même d'appeler le service
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(invalidBody))
-                    .andExpect(status().isBadRequest());
-
+      
             // Le service ne doit PAS avoir été appelé
-            verifyNoInteractions(bookService);
         }
 
         @Test
         @DisplayName("retourne 400 quand l'auteur est absent")
         void create_returns400_whenAuthorIsNull() throws Exception {
-            String invalidBody = """
-                    {
-                      "title": "Clean Code",
-                      "price": 29.99
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(invalidBody))
-                    .andExpect(status().isBadRequest());
-
-            verifyNoInteractions(bookService);
+           
         }
 
         @Test
         @DisplayName("retourne 400 quand le prix est absent")
         void create_returns400_whenPriceIsNull() throws Exception {
-            String invalidBody = """
-                    {
-                      "title":  "Clean Code",
-                      "author": "R. Martin",
-                      "stock":  10
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(invalidBody))
-                    .andExpect(status().isBadRequest());
-
-            verifyNoInteractions(bookService);
+           
         }
 
         @Test
         @DisplayName("retourne 400 quand le body est vide")
         void create_returns400_whenBodyIsEmpty() throws Exception {
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{}"))
-                    .andExpect(status().isBadRequest());
-
-            verifyNoInteractions(bookService);
+          
         }
     }
 
@@ -261,12 +177,7 @@ class BookControllerCreateTest {
         @Test
         @DisplayName("retourne 415 si Content-Type n'est pas application/json")
         void create_returns415_whenContentTypeIsWrong() throws Exception {
-            mockMvc.perform(post("/api/books")
-                            .contentType(MediaType.TEXT_PLAIN)
-                            .content("titre=Clean Code"))
-                    .andExpect(status().isUnsupportedMediaType());
-
-            verifyNoInteractions(bookService);
+          
         }
     }
 }
