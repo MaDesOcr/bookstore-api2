@@ -1,4 +1,3 @@
-C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\repository\BookRepositoryIT.java
-C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\service\BookServiceIT.java
-C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\controller\BookApiIT.java
-C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\AbstractIntegrationTest.java
+C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\controller\BookControllerTest.java
+C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\service\BookServiceFindByIdIT.java
+C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\src\test\java\com\example\bookstore\service\BookServiceTest.java

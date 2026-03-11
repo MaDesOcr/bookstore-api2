@@ -1,0 +1,34 @@
+{
+  "setUp — POST /api/books" : {
+    "transaction" : "setUp — POST /api/books",
+    "sampleCount" : 1,
+    "errorCount" : 1,
+    "errorPct" : 100.0,
+    "meanResTime" : 360.0,
+    "medianResTime" : 360.0,
+    "minResTime" : 360.0,
+    "maxResTime" : 360.0,
+    "pct1ResTime" : 360.0,
+    "pct2ResTime" : 360.0,
+    "pct3ResTime" : 360.0,
+    "throughput" : 2.7777777777777777,
+    "receivedKBytesPerSec" : 0.6890190972222222,
+    "sentKBytesPerSec" : 0.7866753472222222
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 1,
+    "errorCount" : 1,
+    "errorPct" : 100.0,
+    "meanResTime" : 360.0,
+    "medianResTime" : 360.0,
+    "minResTime" : 360.0,
+    "maxResTime" : 360.0,
+    "pct1ResTime" : 360.0,
+    "pct2ResTime" : 360.0,
+    "pct3ResTime" : 360.0,
+    "throughput" : 2.7777777777777777,
+    "receivedKBytesPerSec" : 0.6890190972222222,
+    "sentKBytesPerSec" : 0.7866753472222222
+  }
+}

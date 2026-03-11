@@ -56,6 +56,8 @@ public class Book {
         this.price = price; this.stock = stock;
     }
 
+	
+
 	public Book() {
 		// TODO Auto-generated constructor stub
 	}

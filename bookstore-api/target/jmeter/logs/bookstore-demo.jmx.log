@@ -1,0 +1,30 @@
+2026-03-11 01:23:18,514 INFO o.a.j.u.JMeterUtils: Setting Locale to fr_FR
+2026-03-11 01:23:18,539 INFO o.a.j.u.JMeterUtils: Could not find resources for 'fr_FR', using 'fr'
+2026-03-11 01:23:18,541 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2026-03-11 01:23:18,542 INFO o.a.j.JMeter: Setting System property: sun.net.http.allowRestrictedHeaders=true
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: Copyright (c) 1998-2023 The Apache Software Foundation
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: Version 5.6.2
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: java.version=21.0.2
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: os.name=Windows 11
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: os.arch=amd64
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: os.version=10.0
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: java.awt.headless=true
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: Max memory     =536870912
+2026-03-11 01:23:18,552 INFO o.a.j.JMeter: Available Processors =16
+2026-03-11 01:23:18,563 INFO o.a.j.JMeter: Default Locale=français (France)
+2026-03-11 01:23:18,563 INFO o.a.j.JMeter: JMeter  Locale=français (France)
+2026-03-11 01:23:18,563 INFO o.a.j.JMeter: JMeterHome=C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\target\627d1767-f881-4d9e-b490-5b5d259d3eb3\jmeter
+2026-03-11 01:23:18,563 INFO o.a.j.JMeter: user.dir  =C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\target\627d1767-f881-4d9e-b490-5b5d259d3eb3\jmeter\bin
+2026-03-11 01:23:18,564 INFO o.a.j.JMeter: PWD       =C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\target\627d1767-f881-4d9e-b490-5b5d259d3eb3\jmeter\bin
+2026-03-11 01:23:18,566 INFO o.a.j.JMeter: IP: 192.168.1.12 Name: MaDes FullName: host.docker.internal
+2026-03-11 01:23:18,586 ERROR o.a.j.JMeter: An error occurred: 
+java.lang.IllegalArgumentException: Cannot write to 'C:\Users\desch\Downloads\files(2)\bookstore-api\bookstore-api\target\jmeter\reports\bookstore-demo' as folder is not empty
+	at org.apache.jorphan.util.JOrphanUtils.canSafelyWriteToFolder(JOrphanUtils.java:664) ~[jorphan-5.6.2.jar:5.6.2]
+	at org.apache.jorphan.util.JOrphanUtils.canSafelyWriteToFolder(JOrphanUtils.java:620) ~[jorphan-5.6.2.jar:5.6.2]
+	at org.apache.jmeter.JMeter.extractAndSetReportOutputFolder(JMeter.java:542) ~[ApacheJMeter_core-5.6.2.jar:5.6.2]
+	at org.apache.jmeter.JMeter.start(JMeter.java:492) [ApacheJMeter_core-5.6.2.jar:5.6.2]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.apache.jmeter.NewDriver.main(NewDriver.java:259) [ApacheJMeter-5.6.2.jar:5.6.2]

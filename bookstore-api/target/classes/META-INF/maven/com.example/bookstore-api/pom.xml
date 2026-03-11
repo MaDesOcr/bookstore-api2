@@ -23,6 +23,11 @@
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.19.7</testcontainers.version>
+    	<jmeter.host>localhost</jmeter.host>
+        <jmeter.port>8080</jmeter.port>
+        <jmeter.users>10</jmeter.users>
+        <jmeter.rampup>10</jmeter.rampup>
+        <jmeter.duration>30</jmeter.duration>
     </properties>
 
     <dependencyManagement>
@@ -158,10 +163,14 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>jmeter-tests</id>
-                                <phase>verify</phase>
-                                <goals><goal>jmeter</goal><goal>results</goal></goals>
-                            </execution>
+    <id>configuration</id>         <!-- 1. génère target/config.json -->
+    <goals><goal>configure</goal></goals>
+</execution>
+<execution>
+    <id>jmeter-tests</id>          <!-- 2. lance le .jmx -->
+    <phase>verify</phase>          <!-- 3. génère le rapport HTML -->
+    <goals><goal>jmeter</goal><goal>results</goal></goals>
+</execution>
                         </executions>
                     </plugin>
                 </plugins>

@@ -43,15 +43,9 @@ public class BookService {
         if (req.isbn() != null && bookRepository.existsByIsbn(req.isbn())) {
             throw new DuplicateIsbnException(req.isbn());
         }
-      /*  Book book = Book()
-            .title(req.title())
-            .author(req.author())
-            .isbn(req.isbn())
-            .category(req.category())
-            .price(req.price())
-            .stock(req.stock() != null ? req.stock() : 0)
-            .build();*/
-        return toDto(bookRepository.save(null));
+        Book book = new Book();
+            
+        return toDto(bookRepository.save(book));
     }
 
     @Transactional
