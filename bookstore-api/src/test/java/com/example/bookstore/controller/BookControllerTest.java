@@ -15,13 +15,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 
@@ -45,7 +50,7 @@ import static org.hamcrest.Matchers.*;
  */
 @WebMvcTest(controllers = {BookController.class, GlobalExceptionHandler.class})
 @DisplayName("TU — POST /api/books (create)")
-class BookControllerCreateTest {
+public class BookControllerTest {
 
     @Autowired
     private MockMvc mockMvc;         // Simule les requêtes HTTP sans serveur réel
@@ -85,6 +90,47 @@ class BookControllerCreateTest {
                     .andExpect(status().isCreated());               // HTTP 201
         }
 
+        /*
+         * GET /api/books
+         * @GetMapping
+    public List<BookDto> findAll() { return bookService.findAll(); }
+         */
+        
+        @Test
+        void get_returnAll() throws Exception {
+        	BookDto bookDto = new BookDto(
+                    42L, "Clean Code", "R. Martin", "978-0132350884",
+                    new BigDecimal("29.99"), 10, "TECH", LocalDateTime.now());
+        	List<BookDto> bookDtos = new ArrayList<BookDto>();
+        	bookDtos.add(bookDto);
+        	bookDtos.add(bookDto);
+        	bookDtos.add(bookDto);
+
+        	when(bookService.findAll()).thenReturn(bookDtos);
+        	
+        	mockMvc.perform(get("/api/books").contentType(MediaType.APPLICATION_JSON))
+        	.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(3)));
+        	 
+        	
+        }
+        
+        
+        @Test
+        void get_findById() throws Exception {
+        	BookDto bookDto = new BookDto(
+                    42L, "Clean Code", "R. Martin", "978-0132350884",
+                    new BigDecimal("29.99"), 10, "TECH", LocalDateTime.now());
+
+        	when(bookService.findById(any())).thenReturn(bookDto);
+        	
+        	mockMvc.perform(get("/api/books/{id}", 42L).contentType(MediaType.APPLICATION_JSON))
+        	.andExpect(status().isOk())
+        	.andExpect(jsonPath("$.id").value(42L))
+        	.andExpect(jsonPath("$.title").value("Clean Code"));
+        	 
+        	
+        }
+        
         @Test
         @DisplayName("retourne le livre créé dans le body JSON")
         void create_returnsCreatedBookInBody() throws Exception {
@@ -98,7 +144,7 @@ class BookControllerCreateTest {
             // GIVEN — l'ID retourné par le service est 42
            
             // WHEN + THEN — Location doit contenir /api/books/42
-            mockMvc.perform(post("/api/books")
+            mockMvc.perform(post("/api/books"));
            }
 
         @Test

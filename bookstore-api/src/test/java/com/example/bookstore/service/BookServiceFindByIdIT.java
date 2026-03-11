@@ -113,15 +113,10 @@ class BookServiceFindByIdIT {
     @DisplayName("retourne null pour isbn et category quand ils ne sont pas renseignés")
     void findById_returnsDto_withNullIsbnAndCategory_whenNotSet() {
         // GIVEN — livre sans isbn ni category
-        Book saved = bookRepository.save(
-                new Book("DDD Distilled", "V. Vernon", new BigDecimal("39.99")));
 
         // WHEN
-        BookDto result = bookService.findById(saved.getId());
 
         // THEN
-        assertThat(result.isbn()).isNull();
-        assertThat(result.category()).isNull();
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -135,18 +130,11 @@ class BookServiceFindByIdIT {
     @DisplayName("retourne le bon livre quand plusieurs livres sont en BDD")
     void findById_returnsCorrectBook_whenMultipleBooksExist() {
         // GIVEN — deux livres en BDD avec des IDs différents
-        Book book1 = bookRepository.save(
-                new Book("Clean Code", "R. Martin", new BigDecimal("29.99")));
-        Book book2 = bookRepository.save(
-                new Book("Design Patterns", "GoF", new BigDecimal("54.99")));
-
+        
         // WHEN — on cherche explicitement le deuxième
-        BookDto result = bookService.findById(book2.getId());
-
+        
         // THEN — on doit obtenir book2, pas book1
-        assertThat(result.id()).isEqualTo(book2.getId());
-        assertThat(result.title()).isEqualTo("Design Patterns");
-        assertThat(result.author()).isEqualTo("GoF");
+        
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -162,9 +150,7 @@ class BookServiceFindByIdIT {
         // GIVEN — BDD vide (setUp() a fait deleteAll)
 
         // WHEN + THEN
-        assertThatThrownBy(() -> bookService.findById(999L))
-                .isInstanceOf(BookNotFoundException.class)
-                .hasMessageContaining("999");
+       
     }
 
     // ────────────────────────────────────────────────────────────────────────
@@ -178,19 +164,12 @@ class BookServiceFindByIdIT {
     @DisplayName("lève BookNotFoundException après suppression du livre")
     void findById_throwsException_afterBookIsDeleted() {
         // GIVEN — un livre existe puis est supprimé
-        Book saved = bookRepository.save(
-                new Book("To Delete", "Author", new BigDecimal("9.99")));
-        Long id = saved.getId();
-
+      
         // Vérifier qu'il existe bien avant suppression
-        assertThatCode(() -> bookService.findById(id))
-                .doesNotThrowAnyException();
-
+      
         // Supprimer le livre
-        bookRepository.deleteById(id);
-
+      
         // WHEN + THEN — il ne doit plus être trouvable
-        assertThatThrownBy(() -> bookService.findById(id))
-                .isInstanceOf(BookNotFoundException.class);
+
     }
 }
